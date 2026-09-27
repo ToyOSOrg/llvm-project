@@ -252,7 +252,8 @@ public:
     Serenity,
     Vulkan, // Vulkan SPIR-V
     CheriotRTOS,
-    LastOSType = CheriotRTOS
+    ToyOS,
+    LastOSType = ToyOS
   };
   enum EnvironmentType {
     UnknownEnvironment,
@@ -785,6 +786,9 @@ public:
   bool isOSSerenity() const {
     return getOS() == Triple::Serenity;
   }
+
+  /// Tests whether the OS is ToyOS.
+  bool isOSToyOS() const { return getOS() == Triple::ToyOS; }
 
   /// Tests whether the OS uses the ELF binary format.
   bool isOSBinFormatELF() const {

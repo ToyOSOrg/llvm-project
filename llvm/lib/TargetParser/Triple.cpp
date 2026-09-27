@@ -341,6 +341,8 @@ StringRef Triple::getOSTypeName(OSType Kind) {
   case Vulkan: return "vulkan";
   case CheriotRTOS:
     return "cheriotrtos";
+  case ToyOS:
+    return "toyos";
   }
 
   llvm_unreachable("Invalid OSType");
@@ -754,6 +756,7 @@ static Triple::OSType parseOS(StringRef OSName) {
       .StartsWith("serenity", Triple::Serenity)
       .StartsWith("vulkan", Triple::Vulkan)
       .StartsWith("cheriotrtos", Triple::CheriotRTOS)
+      .StartsWith("toyos", Triple::ToyOS)
       .Default(Triple::UnknownOS);
 }
 
