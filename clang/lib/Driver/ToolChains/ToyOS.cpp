@@ -35,6 +35,9 @@ void tools::toyos::Linker::ConstructJob(Compilation &C, const JobAction &JA,
   // and for "clang -w foo.o -o foo". Other warning options are already
   // handled somewhere else.
   Args.ClaimAllArgs(options::OPT_w);
+  // and for "clang -nostartfiles": there is no start file to leave out, because
+  // the C library carries the entry point.
+  Args.ClaimAllArgs(options::OPT_nostartfiles);
 
   const bool IsRelocatable = Args.hasArg(options::OPT_r);
   const bool IsShared = Args.hasArg(options::OPT_shared);

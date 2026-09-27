@@ -48,6 +48,14 @@
 // CHECK-NOLIBC: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-pie"
 // CHECK-NOLIBC-NOT: "-ltoyos_c"
 
+// RUN: %clang -### %s --target=x86_64-unknown-toyos -nostartfiles \
+// RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
+// RUN:     | FileCheck --check-prefix=CHECK-NOSTARTFILES %s
+// CHECK-NOSTARTFILES-NOT: argument unused
+// CHECK-NOSTARTFILES: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-pie"
+// CHECK-NOSTARTFILES-SAME: "-ltoyos_c"
+// CHECK-NOSTARTFILES-NOT: argument unused
+
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -r \
 // RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-RELOCATABLE %s
