@@ -69,10 +69,6 @@ void tools::toyos::Linker::ConstructJob(Compilation &C, const JobAction &JA,
   CmdArgs.push_back("-o");
   CmdArgs.push_back(Output.getFilename());
 
-  if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nostartfiles) &&
-      !IsShared && !IsRelocatable)
-    CmdArgs.push_back(Args.MakeArgString(ToolChain.GetFilePath("crt0.o")));
-
   Args.addAllArgs(CmdArgs, {options::OPT_L, options::OPT_u});
 
   ToolChain.AddFilePathLibArgs(Args, CmdArgs);
@@ -91,8 +87,9 @@ void tools::toyos::Linker::ConstructJob(Compilation &C, const JobAction &JA,
     if (D.CCCIsCXX() && ToolChain.ShouldLinkCXXStdlib(Args))
       ToolChain.AddCXXStdlibLibArgs(Args, CmdArgs);
 
-    // The C library carries the compiler's runtime builtins itself, so no
-    // separate runtime library is linked.
+    // The C library carries the program's entry point and the compiler's
+    // runtime builtins itself, so there is no start file and no separate
+    // runtime library to link.
     if (!NoLibc)
       CmdArgs.push_back("-ltoyos_c");
   }

@@ -22,7 +22,7 @@
 // CHECK-SAME: "--eh-frame-hdr"
 // CHECK-NOT: "-dynamic-linker"
 // CHECK-SAME: "-o" "a.out"
-// CHECK-SAME: "[[SYSROOT]]{{/|\\\\}}lib{{/|\\\\}}crt0.o"
+// CHECK-NOT: crt0.o
 // CHECK-SAME: "-L[[SYSROOT]]{{/|\\\\}}lib"
 // CHECK-SAME: "{{.*}}.o"
 // CHECK-SAME: "-ltoyos_c"
@@ -34,26 +34,18 @@
 // CHECK-SHARED: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}"
 // CHECK-SHARED-NOT: "-pie"
 // CHECK-SHARED-SAME: "-shared" "-Bsymbolic"
-// CHECK-SHARED-NOT: crt0.o
 // CHECK-SHARED-SAME: "-ltoyos_c"
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -nostdlib \
 // RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-NOSTDLIB %s
 // CHECK-NOSTDLIB: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-pie"
-// CHECK-NOSTDLIB-NOT: crt0.o
 // CHECK-NOSTDLIB-NOT: "-ltoyos_c"
-
-// RUN: %clang -### %s --target=x86_64-unknown-toyos -nostartfiles \
-// RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
-// RUN:     | FileCheck --check-prefix=CHECK-NOSTARTFILES %s
-// CHECK-NOSTARTFILES-NOT: crt0.o
-// CHECK-NOSTARTFILES: "-ltoyos_c"
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -nolibc \
 // RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-NOLIBC %s
-// CHECK-NOLIBC: crt0.o
+// CHECK-NOLIBC: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-pie"
 // CHECK-NOLIBC-NOT: "-ltoyos_c"
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -r \
