@@ -2,11 +2,11 @@
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos \
 // RUN:     -resource-dir=%S/Inputs/resource_dir \
-// RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
+// RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefixes=CHECK,CHECK-X86_64 %s
 // RUN: %clang -### %s --target=aarch64-unknown-toyos \
 // RUN:     -resource-dir=%S/Inputs/resource_dir \
-// RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
+// RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefixes=CHECK,CHECK-AARCH64 %s
 // CHECK: "-cc1"
 // CHECK-X86_64-SAME: "-triple" "x86_64-unknown-toyos"
@@ -29,7 +29,7 @@
 // CHECK-NOT: clang_rt
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -shared \
-// RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
+// RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-SHARED %s
 // CHECK-SHARED: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}"
 // CHECK-SHARED-NOT: "-pie"
@@ -37,19 +37,19 @@
 // CHECK-SHARED-SAME: "-ltoyos_c"
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -nostdlib \
-// RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
+// RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-NOSTDLIB %s
 // CHECK-NOSTDLIB: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-pie"
 // CHECK-NOSTDLIB-NOT: "-ltoyos_c"
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -nolibc \
-// RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
+// RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-NOLIBC %s
 // CHECK-NOLIBC: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-pie"
 // CHECK-NOLIBC-NOT: "-ltoyos_c"
 
 // RUN: %clang -### %s --target=x86_64-unknown-toyos -r \
-// RUN:     --sysroot=%S/Inputs/basic_toyos_tree -fuse-ld=lld 2>&1 \
+// RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-RELOCATABLE %s
 // CHECK-RELOCATABLE: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-r"
 // CHECK-RELOCATABLE-NOT: "-pie"
