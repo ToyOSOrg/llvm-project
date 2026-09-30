@@ -136,3 +136,26 @@ void ToyOS::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
   llvm::sys::path::append(P, "include");
   addExternCSystemInclude(DriverArgs, CC1Args, P);
 }
+
+void ToyOS::AddClangCXXStdlibIncludeArgs(const ArgList &DriverArgs,
+                                         ArgStringList &CC1Args) const {
+  const Driver &D = getDriver();
+
+  if (DriverArgs.hasArg(options::OPT_nostdinc, options::OPT_nostdlibinc,
+                        options::OPT_nostdincxx) ||
+      D.SysRoot.empty())
+    return;
+
+  // libc++ is the C++ standard library ToyOS has. A sysroot is one target's,
+  // so its headers, __config_site among them, are in include/c++/<version>.
+  if (GetCXXStdlibType(DriverArgs) != ToolChain::CST_Libcxx)
+    return;
+
+  SmallString<128> P(D.SysRoot);
+  llvm::sys::path::append(P, "include");
+  std::string Version = detectLibcxxVersion(P);
+  if (Version.empty())
+    return;
+  llvm::sys::path::append(P, "c++", Version);
+  addSystemInclude(DriverArgs, CC1Args, P);
+}
