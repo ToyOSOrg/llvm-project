@@ -26,6 +26,6 @@
 // RUN: %clangxx -### %s --target=x86_64-unknown-toyos -nostdlib++ \
 // RUN:     --sysroot=%S/Inputs/basic_toyos_tree 2>&1 \
 // RUN:     | FileCheck --check-prefix=CHECK-NOSTDLIBXX %s
-// CHECK-NOSTDLIBXX: {{.*}}ld.lld{{.*}}"
+// CHECK-NOSTDLIBXX: {{.*}}ld.lld{{.*}}" "--sysroot={{[^"]+}}" "-pie"
 // CHECK-NOSTDLIBXX-NOT: "-lc++"
 // CHECK-NOSTDLIBXX-SAME: "-ltoyos_c"
