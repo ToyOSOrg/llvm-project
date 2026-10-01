@@ -517,6 +517,9 @@ static bool is_local_impl(struct STATVFS &Vfs) {
 #elif defined(__EMSCRIPTEN__)
   // Emscripten doesn't currently support remote filesystem mounts.
   return true;
+#elif defined(__toyos__)
+  // ToyOS doesn't support remote filesystem mounts.
+  return true;
 #elif defined(__HAIKU__)
   // Haiku doesn't expose this information.
   return false;
