@@ -29,10 +29,18 @@ leave:
 define void @unsimplified_and2(i32 %n) {
 ; CHECK-LABEL: 'unsimplified_and2'
 ; CHECK-NEXT:  Determining loop execution counts for: @unsimplified_and2
-; CHECK-NEXT:  Loop %loop: backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: constant max backedge-taken count is i32 -1
-; CHECK-NEXT:  Loop %loop: symbolic max backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: Trip multiple is 1
+; CHECK-NEXT:  Loop %loop: Unpredictable backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable constant max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable symbolic max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Predicated backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated constant max backedge-taken count is i64 4294967295
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated symbolic max backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
 ;
 entry:
   br label %loop
@@ -137,10 +145,18 @@ leave:
 define void @unsimplified_or3(i32 %n) {
 ; CHECK-LABEL: 'unsimplified_or3'
 ; CHECK-NEXT:  Determining loop execution counts for: @unsimplified_or3
-; CHECK-NEXT:  Loop %loop: backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: constant max backedge-taken count is i32 -1
-; CHECK-NEXT:  Loop %loop: symbolic max backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: Trip multiple is 1
+; CHECK-NEXT:  Loop %loop: Unpredictable backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable constant max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable symbolic max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Predicated backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated constant max backedge-taken count is i64 4294967295
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated symbolic max backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
 ;
 entry:
   br label %loop
@@ -203,10 +219,18 @@ leave:
 define void @reversed_and2(i32 %n) {
 ; CHECK-LABEL: 'reversed_and2'
 ; CHECK-NEXT:  Determining loop execution counts for: @reversed_and2
-; CHECK-NEXT:  Loop %loop: backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: constant max backedge-taken count is i32 -1
-; CHECK-NEXT:  Loop %loop: symbolic max backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: Trip multiple is 1
+; CHECK-NEXT:  Loop %loop: Unpredictable backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable constant max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable symbolic max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Predicated backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated constant max backedge-taken count is i64 4294967295
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated symbolic max backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
 ;
 entry:
   br label %loop
@@ -311,10 +335,18 @@ leave:
 define void @reversed_or3(i32 %n) {
 ; CHECK-LABEL: 'reversed_or3'
 ; CHECK-NEXT:  Determining loop execution counts for: @reversed_or3
-; CHECK-NEXT:  Loop %loop: backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: constant max backedge-taken count is i32 -1
-; CHECK-NEXT:  Loop %loop: symbolic max backedge-taken count is %n
-; CHECK-NEXT:  Loop %loop: Trip multiple is 1
+; CHECK-NEXT:  Loop %loop: Unpredictable backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable constant max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Unpredictable symbolic max backedge-taken count.
+; CHECK-NEXT:  Loop %loop: Predicated backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated constant max backedge-taken count is i64 4294967295
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
+; CHECK-NEXT:  Loop %loop: Predicated symbolic max backedge-taken count is (zext i32 %n to i64)
+; CHECK-NEXT:   Predicates:
+; CHECK-NEXT:      {1,+,1}<%loop> Added Flags: <nusw>
 ;
 entry:
   br label %loop

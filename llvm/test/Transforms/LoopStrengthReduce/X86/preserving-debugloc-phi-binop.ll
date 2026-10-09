@@ -20,7 +20,7 @@ loop:                                             ; preds = %loop, %entry
   %accum = phi i32 [ -3220, %entry ], [ %accum.next, %loop ], !dbg !9
   %iv = phi i32 [ 12, %entry ], [ %iv.next, %loop ], !dbg !10
   %tmp1 = sitofp i32 %accum to double, !dbg !11
-  tail call void @foo(double %tmp1), !dbg !12
+  tail call void @foo(double noundef %tmp1), !dbg !12
   %accum.next = add nsw i32 %accum, 9597741, !dbg !13
   %iv.next = add nuw nsw i32 %iv, 1, !dbg !14
   %exitcond = icmp ugt i32 %iv, 235, !dbg !15

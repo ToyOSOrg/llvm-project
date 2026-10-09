@@ -151,7 +151,7 @@ loop:
   %accum = phi i32 [ -3220, %entry ], [ %accum.next, %loop ]
   %iv = phi i32 [ 12, %entry ], [ %iv.next, %loop ]
   %tmp1 = sitofp i32 %accum to double
-  tail call void @foo( double %tmp1 ) nounwind
+  tail call void @foo( double noundef %tmp1 ) nounwind
   %accum.next = add nsw i32 %accum, 9597741
   %iv.next = add nuw nsw i32 %iv, 1
   %exitcond = icmp ugt i32 %iv, 235
@@ -198,7 +198,7 @@ loop:
   %accum = phi i32 [ -3220, %entry ], [ %accum.next, %loop ]
   %iv = phi i32 [ 12, %entry ], [ %iv.next, %loop ]
   %tmp1 = uitofp i32 %accum to double
-  tail call void @foo( double %tmp1 ) nounwind
+  tail call void @foo( double noundef %tmp1 ) nounwind
   %accum.next = add nuw i32 %accum, 9597741
   %iv.next = add nuw nsw i32 %iv, 1
   %exitcond = icmp ugt i32 %iv, 235

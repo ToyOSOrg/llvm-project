@@ -13,7 +13,7 @@ define void @f(ptr %condition) {
   %idx.inc2.zext = zext i32 %idx.inc2 to i64
 
 ; CHECK: %idx.inc2.zext = zext i32 %idx.inc2 to i64
-; CHECK-NEXT: -->  {2,+,1}<nuw><%loop>
+; CHECK-NEXT: -->  (zext i32 {2,+,1}<%loop> to i64)
 
   %c = load volatile i1, ptr %condition
   br i1 %c, label %loop, label %exit

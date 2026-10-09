@@ -49,18 +49,20 @@ for.end:                                          ; preds = %for.cond
 ; LARGER-CACHELINE: Loop 'for.cond5' has cost = 20000
 @data = external dso_local global [2 x [4 x [18 x i32]]], align 1
 
-define dso_local void @handle_to_ptr_2(i1 %b0, i1 %b1, i1 %b2) {
+define dso_local void @handle_to_ptr_2() {
 entry:
   br label %for.cond
 
 for.cond:
   %i.0 = phi i16 [ 0, %entry ], [ %inc18, %for.inc17 ]
   %idxprom = zext i16 %i.0 to i32
-  br i1 %b2, label %for.end19, label %for.cond1
+  %cmp = icmp eq i16 %i.0, 99
+  br i1 %cmp, label %for.end19, label %for.cond1
 
 for.cond1:
   %j.0 = phi i16 [ %inc15, %for.inc14 ], [ 0, %for.cond ]
-  br i1 %b1, label %for.inc17, label %for.cond5.preheader
+  %cmp2 = icmp eq i16 %j.0, 99
+  br i1 %cmp2, label %for.inc17, label %for.cond5.preheader
 
 for.cond5.preheader:
   %idxprom10 = zext i16 %j.0 to i32
@@ -68,7 +70,8 @@ for.cond5.preheader:
 
 for.cond5:
   %k.0 = phi i16 [ %inc, %for.inc ], [ 0, %for.cond5.preheader ]
-  br i1 %b0, label %for.inc14, label %for.inc
+  %cmp6 = icmp eq i16 %k.0, 99
+  br i1 %cmp6, label %for.inc14, label %for.inc
 
 for.inc:
   %idxprom12 = zext i16 %k.0 to i32

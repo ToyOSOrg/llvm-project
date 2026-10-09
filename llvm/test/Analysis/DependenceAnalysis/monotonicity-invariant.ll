@@ -68,11 +68,12 @@ define void @invariant_plus_monotonic0(ptr %a, i64 %x, i64 %n, i64 %m) {
 ; CHECK-LABEL: 'invariant_plus_monotonic0'
 ; CHECK-NEXT:  Monotonicity check:
 ; CHECK-NEXT:    Inst: store i8 0, ptr %idx, align 1
-; CHECK-NEXT:      Expr: {%x,+,1}<nsw><%loop.i.header>
-; CHECK-NEXT:      Monotonicity: MultivariateSignedMonotonic
+; CHECK-NEXT:      Expr: {%x,+,1}<%loop.i.header>
+; CHECK-NEXT:      Monotonicity: Unknown
+; CHECK-NEXT:      Reason: {%x,+,1}<%loop.i.header>
 ; CHECK-EMPTY:
 ; CHECK-NEXT:  Src: store i8 0, ptr %idx, align 1 --> Dst: store i8 0, ptr %idx, align 1
-; CHECK-NEXT:    da analyze - consistent output [0 S]!
+; CHECK-NEXT:    da analyze - confused!
 ;
 entry:
   %guard.i = icmp sgt i64 %n, 0

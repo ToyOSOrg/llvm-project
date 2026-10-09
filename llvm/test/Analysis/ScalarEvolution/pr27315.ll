@@ -6,11 +6,11 @@ define void @f_0() {
 ; CHECK-LABEL: Classifying expressions for: @f_0
 
 ; CHECK:  %iv = phi i32 [ 0, %entry ], [ %iv.inc.nowrap, %be ]
-; CHECK-NEXT: -->  {0,+,1}<nuw><nsw><%loop>
+; CHECK-NEXT: -->  {0,+,1}<%loop>
 ; CHECK: %iv.inc.maywrap = add i32 %iv, 1
-; CHECK-NEXT: -->  {1,+,1}<nuw><%loop>
+; CHECK-NEXT: -->  {1,+,1}<%loop>
 ; CHECK:  %iv.inc.maywrap.sext = sext i32 %iv.inc.maywrap to i64
-; CHECK-NEXT:  -->  (sext i32 {1,+,1}<nuw><%loop> to i64)
+; CHECK-NEXT:  -->  (sext i32 {1,+,1}<%loop> to i64)
 entry:
   br label %loop
 

@@ -1,7 +1,7 @@
 ; RUN: opt <%s -p "print<scalar-evolution>" -disable-output 2>&1 | FileCheck %s
 ; RUN: opt <%s -p "loop(loop-idiom),print<scalar-evolution>" -disable-output 2>&1 | FileCheck %s
 
-; CHECK: backedge-taken count is i64 1
+; CHECK: Loop %outerL: backedge-taken count is i32 5
 
 ; IR corresponds to the following C test:
 ; extern char a[];

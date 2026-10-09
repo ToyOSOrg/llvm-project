@@ -466,11 +466,12 @@ define void @conditional_store1(ptr %a, i64 %n, i64 %m) {
 ; CHECK-LABEL: 'conditional_store1'
 ; CHECK-NEXT:  Monotonicity check:
 ; CHECK-NEXT:    Inst: store i8 0, ptr %idx, align 1
-; CHECK-NEXT:      Expr: {{\{\{}}0,+,1}<nuw><nsw><%loop.i.header>,+,1}<nuw><nsw><%loop.j.header>
-; CHECK-NEXT:      Monotonicity: MultivariateSignedMonotonic
+; CHECK-NEXT:      Expr: {{\{\{}}0,+,1}<nuw><nsw><%loop.i.header>,+,1}<nuw><%loop.j.header>
+; CHECK-NEXT:      Monotonicity: Unknown
+; CHECK-NEXT:      Reason: {{\{\{}}0,+,1}<nuw><nsw><%loop.i.header>,+,1}<nuw><%loop.j.header>
 ; CHECK-EMPTY:
 ; CHECK-NEXT:  Src: store i8 0, ptr %idx, align 1 --> Dst: store i8 0, ptr %idx, align 1
-; CHECK-NEXT:    da analyze - output [* *]!
+; CHECK-NEXT:    da analyze - confused!
 ;
 entry:
   %guard.i = icmp sgt i64 %n, 0

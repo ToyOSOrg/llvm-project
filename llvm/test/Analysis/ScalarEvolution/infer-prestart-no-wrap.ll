@@ -95,11 +95,11 @@ define void @infer.sext.1(i32 %start, ptr %c) {
 ; CHECK-NEXT:    %start.real = add i32 %start.mul, 2
 ; CHECK-NEXT:    --> (2 + (4 * %start))<nuw><nsw> U: [2,-1) S: [-2147483646,2147483647)
 ; CHECK-NEXT:    %idx = phi i32 [ %start.real, %entry ], [ %idx.inc, %loop ]
-; CHECK-NEXT:    --> {(2 + (4 * %start))<nuw><nsw>,+,2}<nsw><%loop> U: [0,-1) S: [-2147483646,2147483647) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> {(2 + (4 * %start))<nuw><nsw>,+,2}<%loop> U: [0,-1) S: [-2147483648,2147483647) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %idx.sext = sext i32 %idx to i64
-; CHECK-NEXT:    --> {(2 + (sext i32 (4 * %start) to i64))<nuw><nsw>,+,2}<nsw><%loop> U: [0,-1) S: [-2147483646,9223372036854775807) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> (sext i32 {(2 + (4 * %start))<nuw><nsw>,+,2}<%loop> to i64) U: [0,-1) S: [-2147483648,2147483647) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %idx.inc = add nsw i32 %idx, 2
-; CHECK-NEXT:    --> {(4 + (4 * %start)),+,2}<nw><%loop> U: [0,-1) S: [-2147483648,2147483647) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> {(4 + (4 * %start)),+,2}<%loop> U: [0,-1) S: [-2147483648,2147483647) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %condition = load i1, ptr %c, align 1
 ; CHECK-NEXT:    --> %condition U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Variant }
 ; CHECK-NEXT:  Determining loop execution counts for: @infer.sext.1
@@ -129,11 +129,11 @@ define void @infer.sext.2(ptr %c, i8 %start) {
 ; CHECK-NEXT:    %start.inc = add i8 %start, 1
 ; CHECK-NEXT:    --> (1 + %start) U: full-set S: full-set
 ; CHECK-NEXT:    %idx = phi i8 [ %start.inc, %entry ], [ %idx.inc, %loop ]
-; CHECK-NEXT:    --> {(1 + %start),+,1}<nsw><%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> {(1 + %start),+,1}<%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %idx.sext = sext i8 %idx to i16
-; CHECK-NEXT:    --> {(1 + (sext i8 %start to i16))<nsw>,+,1}<nsw><%loop> U: [-127,-32768) S: [-127,-32768) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> (sext i8 {(1 + %start),+,1}<%loop> to i16) U: [-128,128) S: [-128,128) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %idx.inc = add nsw i8 %idx, 1
-; CHECK-NEXT:    --> {(2 + %start),+,1}<nw><%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> {(2 + %start),+,1}<%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %condition = load volatile i1, ptr %c, align 1
 ; CHECK-NEXT:    --> %condition U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Variant }
 ; CHECK-NEXT:  Determining loop execution counts for: @infer.sext.2
@@ -163,11 +163,11 @@ define void @infer.zext.1(ptr %c, i8 %start) {
 ; CHECK-NEXT:    %start.inc = add i8 %start, 1
 ; CHECK-NEXT:    --> (1 + %start) U: full-set S: full-set
 ; CHECK-NEXT:    %idx = phi i8 [ %start.inc, %entry ], [ %idx.inc, %loop ]
-; CHECK-NEXT:    --> {(1 + %start),+,1}<nuw><%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> {(1 + %start),+,1}<%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %idx.zext = zext i8 %idx to i16
-; CHECK-NEXT:    --> {(1 + (zext i8 %start to i16))<nuw><nsw>,+,1}<nuw><%loop> U: [1,0) S: [1,0) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> (zext i8 {(1 + %start),+,1}<%loop> to i16) U: [0,256) S: [0,256) Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %idx.inc = add nuw i8 %idx, 1
-; CHECK-NEXT:    --> {(2 + %start),+,1}<nw><%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
+; CHECK-NEXT:    --> {(2 + %start),+,1}<%loop> U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Computable }
 ; CHECK-NEXT:    %condition = load volatile i1, ptr %c, align 1
 ; CHECK-NEXT:    --> %condition U: full-set S: full-set Exits: <<Unknown>> LoopDispositions: { %loop: Variant }
 ; CHECK-NEXT:  Determining loop execution counts for: @infer.zext.1
