@@ -169,13 +169,6 @@ static cl::opt<bool> VerifyIR(
     cl::desc("Verify IR correctness when making sensitive SCEV queries (slow)"),
     cl::init(false));
 
-static cl::opt<bool> UnconditionalPreIncNoWrapFlags(
-    "scev-unconditional-preinc-nowrap-flags", cl::Hidden,
-    cl::desc("Transfer the nowrap flags of an IR increment to the pre-inc "
-             "addrec of its phi without proving that they hold for it "
-             "(unsound)"),
-    cl::init(false));
-
 static cl::opt<unsigned> MulOpsInlineThreshold(
     "scev-mulops-inline-threshold", cl::Hidden,
     cl::desc("Threshold for inlining multiplication operands into a SCEV"),
@@ -7502,9 +7495,6 @@ bool ScalarEvolution::isPostIncAddRecNeverPoison(const Instruction *PostIncI,
 
 bool ScalarEvolution::canPreservePreIncAddRecNoWrapFlags(
     const Instruction *PreIncI, const Instruction *PostIncI, const Loop *L) {
-  if (UnconditionalPreIncNoWrapFlags)
-    return true;
-
   // The flags of the increment say that it is poison where it wraps, and a
   // poison value that nothing observes is no undefined behavior. SCEV
   // expressions are uniqued without their flags, so a flag on the pre-inc
